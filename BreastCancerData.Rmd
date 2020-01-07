@@ -1,0 +1,38 @@
+---
+title: "Practicing"
+author: "Spencer Kight"
+date: "10/24/2019"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(readr)
+BreastCancerData <- read_csv("PycharmProjects/DSU1_Final/BreastCancerData.csv")
+BreastCancerData$ClassHot <- (BreastCancerData$Class/4) 
+
+
+boxplot(BreastCancerData$Madhesion~BreastCancerData$Class, main = 'Results', xlab = 'Class', ylab= 'Marginal Adhesion')
+
+
+
+boxplot(BreastCancerData$UniCS~BreastCancerData$Class, main = 'Uniformity of Cell Size by Class')
+boxplot(BreastCancerData$UniCSh~BreastCancerData$Class, main = 'Uniformity of Cell Shape by Class')
+boxplot(BreastCancerData$SECS~BreastCancerData$Class, main = 'Single Epithelial Cell Size by Class')
+hist(BreastCancerData$Class)
+
+
+
+```
+
+```{r}
+
+m1 <- glm(ClassHot~Madhesion, family = "binomial", data = BreastCancerData)
+m2 <- lm(Madhesion~ClassHot, data = BreastCancerData)
+summary(m1)
+```
